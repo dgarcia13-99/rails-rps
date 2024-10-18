@@ -56,9 +56,6 @@ jobs:
       - name: Lint Ruby files
         run: bin/rubocop --parallel
 
-  interaction:
-    runs-on: ubuntu-latest
-    steps:
       - name: First interaction
         uses: actions/first-interaction@v1.3.0
         with:
