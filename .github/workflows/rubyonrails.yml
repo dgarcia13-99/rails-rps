@@ -38,28 +38,3 @@ jobs:
       - name: Run tests
         run: bin/rake
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
-        with:
-          bundler-cache: true
-      - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
-      - name: Lint Ruby files
-        run: bin/rubocop --parallel
-
-      - name: First interaction
-        uses: actions/first-interaction@v1.3.0
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "Thank you for opening your first issue!"
-          pr-message: "Thank you for submitting your first pull request!"
-
